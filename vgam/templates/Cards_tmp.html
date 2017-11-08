@@ -1,0 +1,99 @@
+{% extends 'base_tmp.html' %}
+
+{% block content %}
+
+<div style=" max-width: 80%;" >
+
+{% for expert in objects %}
+
+   <!-- Карта пользователя (начало)-->
+
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<!-- Аватар пользователя -->
+						<img src="http://placehold.it/300x200" alt="" class="img-circle" width="30" height="30">
+						<!-- Никнейм пользователя -->
+							<a href="/rating/profile/{{expert.id}}" style="color: white;"> 
+								{{ expert.surname }} {{ expert.name }} {{ expert.patronymic }} 
+							<span class="glyphicon glyphicon-share-alt"></span></a></body>
+						<div class="pull-right">
+							<!-- СРО -->
+							<div max-width="100"><div title="{{ expert.SRO }}"><strong>СРО</strong>&nbsp;{{ expert.SRO }}</div></div>
+						</div>	
+					</h3>
+				</div>
+				<div class="panel-body">
+				<div class = "row">
+					<div class="col-md-9">
+						<h5>
+						<span class="label label-primary">Доп информация:</span>
+						<div class="well well-sm" >
+							{{ expert.custom_text }}
+						</div>
+						
+						<span class="label label-primary">Средние показатели:</span><br> <div class="alert highlight">
+						<div class="pull-left"> <strong>Средний размер дела: </strong></div>
+						<div class="pull-right">  {{ expert.average_case_size }} ₽</div>
+						<br/> <br/>
+						<div class="pull-left"><strong> Среднее вознаграждение: </strong></div>
+						<div class="pull-right">  {{ expert.average_reward }} ₽</div></div>
+						</h5>
+					</div>
+					<div class="col-md-3 pull-right ">
+						<span class="label label-primary">Общее:</span><br>
+						<strong>Рейтинг:</strong> 	<div class="pull-right">  {{ expert.rating }}</div><br/>
+						<strong>Баллы: 	</strong>	<div class="pull-right">  {{ expert.points }}</div><br/>
+						<strong>Возврат:</strong> 	<div class="pull-right">  {{ expert.average_return_level }}%</div> <br/>
+						<strong>Отзывы: </strong>	<div class="pull-right"><span class=" text-success">+10 </span> / <span class="text-danger"> -1 </span> </div>
+						<hr>
+
+						<div class="card-block" style="float:none; margin-left: 1rem; margin-right: 1rem;">
+                        <div class="row push-right">
+                          {% if expert.has_complaint %}
+                          <div class="col-md-3" style="padding: 3px 3px">
+                            
+                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Имеются жалобы"><div class="btn btn-static btn-block" style="background-color: yellow; color: black; padding: 0.3rem 0.5rem; max-width: 30px;">Ж</div></a>
+                            
+                          </div>
+                          {% endif %}
+                          {% if expert.has_disqualification %}
+                          <div class="col-md-3" style="padding: 3px 3px">
+                            
+                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Имеются дисквалификации"><div class="btn btn-static btn-block" style="background-color: #ff9966; color: white; padding: 0.3rem 0.5rem;max-width: 30px;">!</div></a>
+                            
+                          </div>
+                          {% endif %}
+                          {% if expert.has_disciplinary_action %}
+                          <div class="col-md-3" style="padding: 3px 3px">
+                            
+                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Имеются дисциплинарные взыскания"><div class="btn btn-static btn-block" style="background-color: red; color: white; padding: 0.3rem 0.5rem;max-width: 30px;">Д</div></a>
+
+                          </div>
+                          {% endif %}
+                        </div>
+                      </div>
+
+					</div>
+				</div>
+				</div>
+            </div>
+			<!-- Карта пользователя (конец)-->
+			<hr>
+{% endfor %}
+</div>
+<br><br>
+		<div class="btn-group btn-group-lg">
+			{% if objects.has_previous %}
+			<a href="?page={{ objects.previous_page_number }}"><button type="button" class="btn btn-default">
+				<i class="glyphicon glyphicon-backward"></i>
+			</button></a>
+			{% endif %}
+			<a><button type="button" class="btn btn-default">{{objects.number}}</button></a>
+			{% if objects.has_next %}
+			<a href="?page={{ objects.next_page_number }}"><button type="button" class="btn btn-default">
+				<i class="glyphicon glyphicon-forward"></i>
+			</button></a>
+			{% endif %}
+		</div>
+{% endblock %}

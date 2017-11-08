@@ -1,0 +1,15 @@
+
+.expert-card {
+  padding: 1.5rem 1.5rem;
+  margin:  0rem 15rem;
+  text-align: left;
+}
+.card {
+  margin: 0 auto; /* Added */
+  float: none; /* Added */
+  margin-bottom: 10px; /* Added */
+}
+.btn-static {
+  cursor: default;
+}
+}

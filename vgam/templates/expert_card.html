@@ -1,0 +1,112 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Ilia Minchenko">
+
+
+    <title>Blog Template for Bootstrap</title>
+
+    
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}" />
+  	<link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.min.css' %}" />
+  </head>
+
+    <!-- Custom styles for this template -->
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="#">Test</a>
+    </nav>
+
+    <main role="main" class="container">
+        <div class="container">
+          <div class="row">
+            <div class="col-auto">
+              <div class="card" style="align: center;">
+                <div class="card-body">
+                  <div class="text-center">
+                  <img src="{% static 'users/default_avatar.png' %}" class="rounded" alt="Responsive image" style="max-width: 250px; max-height: 250px;">
+                  </div>
+                </div>
+              </div>
+
+              <div class="card" style="align: center;">
+                <div class="card-body">
+                  <div class="card-block">Рейтинг:&nbsp;<div style="float: right; width: 2em; overflow: hidden; text-overflow: clip; display: block; white-space: nowrap; text-align: right;">{{ user.rating }}</div></div>
+
+                  <div class="card-block">Баллы:&nbsp;<div style="float: right;">{{ user.points }}</div></div>
+
+                  <div class="card-block">Средний уровень возврата:&nbsp;<div style="float: right;">{{ user.average_return_level }}%</div></div>
+
+                  <div class="card-block">
+                    <div class="row">
+                      <div class=col>
+                        {% if user.has_complaint %}
+                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Имеются жалобы"><div class="btn btn-static btn-block" style="background-color: yellow; color: black;">Ж</div></a>
+                        {% endif %}
+                        
+                      </div>
+                      <div class=col>
+                        {% if user.has_disqualification %}
+                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Имеются дисквалификации"><div class="btn btn-static btn-block" style="background-color: #ff9966; color: white;">!</div></a>
+                        {% endif %}
+                      </div>
+                      <div class=col>
+                        {% if user.has_disciplinary_action %}
+                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Имеются дисциплинарные взыскания"><div class="btn btn-static btn-block" style="background-color: red; color: white;">Д</div></a>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card" style="align: center;">
+                <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+                <div class="card-body">
+                  <h4 class="card-title">{{ user.surname }}  {{ user.name }} {{ user.patronymic }}</h4>
+                  <p class="card-text">{{ user.custom_text }}</p>
+                </div>
+              </div>
+
+              <div class="card" style="align: center;">
+                <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+                <div class="card-body">
+                  <h4 class="card-title">Подробная информация</h4>
+                  <p class="card-text">фыв</p>
+                  <p class="card-text">фыв</p>
+
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">Отзывы<div style="float: right;"><font color="green">+x</font> / <font color="red">-y</font></div></div>
+                <ul class="list-group list-group-flush">
+                  {% for comment in user.comment_set.all %}
+                    <li class="list-group-item">
+                      <h6>
+                        <div style="width: 15em; float: left; text-overflow: ellipsis; display: block; overflow: hidden; white-space: nowrap;">{{ comment.user_name }}</div>
+                        <div style="float: left;">{{ comment.pub_date }}</div>
+                        <div style="float: right">{{ comment.rating }}</div>
+                      </h6>
+                      <div class="card-body">
+                        <p class="card-text">{{ comment.comment_text }}</p>
+                      </div>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+
+            <!-- <div class="col-2">
+            </div> -->
+          </div>
+        </div>
+    </main>
+  </body>
+</html>

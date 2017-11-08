@@ -1,0 +1,42 @@
+{% extends 'base_tmp.html' %}
+
+{% block content %}
+<div class="col-md-9">
+  <form method="post" class="form-group">
+    {% csrf_token %}
+    <h3>{{ form.title }}</h3>
+    <hr>
+    {% for field in form   %}
+
+      <div class="form-group {% if field.errors %} has-error {% endif %} " >
+        <label class=" control-label">
+            {{ field.label }}
+        </label>
+
+        <div class=" ">
+          <!-- поле и все его ошибки-->
+          {{ field }}
+          {% for error in field.errors %}
+              <label class="control-label">
+                 {{ error }}
+              </label>
+          {% endfor %}
+          <!-- конец ошибок-->
+        </div>
+      </div>
+
+    {% endfor %}
+
+    <!-- конец полей-->
+
+    <div class="form-group">
+      <div class="">
+        <hr>
+        <button type="submit" class="btn btn-primary">
+          Подтвердить
+        </button>
+      </div>
+    </div>
+  </form>
+ </div> 
+{% endblock %}

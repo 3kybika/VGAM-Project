@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <title>Заглавная</title>
+	
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/local.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+
+    <script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>   
+</head>
+<body>
+
+    <div id="wrapper">
+       
+	   {% include "navs_tmp.html" %}
+
+        <div id="page-wrapper">
+			<!--Контент (начало)-->	
+            {% block content %}
+            {% endblock %}
+    		<!--Контент (конец)-->
+        </div>
+        <!-- /#page-wrapper -->
+		
+    
+		<div class="modal-footer col-md-12" ">
+		<footer class="bs-docs-footer" role="contentinfo">
+		<nav class=" navbar-default pull-bottom" role="navigation">
+				<div >
+					<hr>
+					<div class= "pull-left">
+						<span class="tag"><span class="tag">Какая нибудь полезность ©</span></span>
+					</div>
+				</div>
+		</nav>
+		</footer>
+		</div>	
+		</div>  
+</body>
+</html>

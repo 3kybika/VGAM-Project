@@ -10,6 +10,9 @@ services:
 - docker 
 
 #----------------------------------------------— 
+before_install:
+-sudo apt-get update
+#----DB configuration?-------------------------
 
 instal: true 
 

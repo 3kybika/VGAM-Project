@@ -1,0 +1,19 @@
+sudo: required 
+dist: trusty 
+language: python
+
+branches: 
+only: 
+- master 
+
+services: 
+- docker 
+
+#----------------------------------------------— 
+
+instal: true 
+
+script: 
+- docker login —username=_ —password=$(echo $API_KEY) registry.heroku.com 
+- docker build -t registry.heroku.com/VGAM-project
+- docker push registry.heroku.com/VGAM-project

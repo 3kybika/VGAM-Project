@@ -18,7 +18,6 @@ services:
 install: true
 
 script:
-  - docker login 
   - docker images --all
   - docker build -t registry.heroku.com/vgam/web .
   - docker push registry.heroku.com/vgam/web

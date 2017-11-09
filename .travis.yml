@@ -1,13 +1,11 @@
 sudo: required 
 dist: trusty 
 language: python
+- "2.7"
 
 branches: 
 only: 
 - master 
-
-services: 
-- docker 
 
 #----------------------------------------------— 
 before_install:
@@ -15,8 +13,18 @@ before_install:
 #----DB configuration?-------------------------
 
 instal: true 
+- pip install .
+- pip install gunicorn
+- pip install -e django
 
+before_script:
+  - sudo apt-get install nginx 
+  - sudo rm /etc/nginx/sites-enabled/*
+  - sudo cp vgam.conf /etc/nginx/sites-enabled/vgam.conf
+ # - sudo /etc/init.d/nginx restart
+  - sudo nginx service restart
+  - mkdir /vgam
+  - sudo cp vgam/ /vgam
+  
 script: 
-- docker login —username=_ —password=$(echo $API_KEY) registry.heroku.com 
-- docker build -t registry.heroku.com/VGAM-project
-- docker push registry.heroku.com/VGAM-project
+- gunicorn /vgam/vgam.wsgi

@@ -1,23 +1,26 @@
+language: python 
 
-language: python
-deploy:
-  provider: heroku
-  buildpack: python
-  api_key:
-    secure: 9d74c83b-d494-468c-b5a7-bcff322c504f
-  strategy: git
-  app: vgam
-  on:
-    repo: 3kybika/VGAM-project
+    python: 
 
-sudo: required
+      - "2.7"
 
-services:
-  - docker
+    services: 
 
-install: true
+      - mysql
+      - nginx
 
-script:
-  - docker build -t registry.heroku.com/vgam/web .
-  - docker images --all
-  - docker push registry.heroku.com/vgam/web
+    env: 
+
+      -DJANGO=1.8 DB=mysql
+    install: 
+
+    install:
+  - pip install gunicorn
+
+
+    before_script: 
+
+      - mysql -e 'create database VGAM_db;' -u root
+    script: 
+
+      - gunicorn vgam.wsgi

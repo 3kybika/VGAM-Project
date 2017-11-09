@@ -1,24 +1,19 @@
-  language: python
-  python:
-    - 3.6
-    - nightly
 
-  sudo: enabled
+language: node_js
 
-  install:  
-    - pip install .
-    - pip install gunicorn
-    - pip install -e django
-    - sudo apt-get install nginx  
+sudo: required
 
-  before_script:
-    - sudo apt-get install nginx 
-    - sudo rm /etc/nginx/sites-enabled/*
-    - sudo cp vgam.conf /etc/nginx/sites-enabled/vgam.conf
- # - sudo /etc/init.d/nginx restart
-    - sudo nginx service restart
-    - mkdir /vgam
-    - sudo cp vgam/ /vgam
+node_js:
+  - 7
 
-  script: 
-     - gunicorn /vgam/vgam.wsgi
+services:
+  - docker
+
+install: true
+
+script:
+  - docker login --username=_ --password=$(echo $API_KEY) registry.heroku.com
+  
+  - docker images --all
+  - docker build -t registry.heroku.com/xogame123/web .
+  - docker push registry.heroku.com/xogame123/web

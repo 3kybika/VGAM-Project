@@ -1,10 +1,16 @@
 
-language: node_js
+language: python
+deploy:
+  provider: heroku
+  buildpack: python
+  api_key:
+    secure: 9d74c83b-d494-468c-b5a7-bcff322c504f
+  strategy: git
+  app: vgam
+  on:
+    repo: 3kybika/VGAM-project
 
 sudo: required
-
-node_js:
-  - 7
 
 services:
   - docker
@@ -12,8 +18,7 @@ services:
 install: true
 
 script:
-  - docker login --username=_ --password=$(echo $API_KEY) registry.heroku.com
-  
+  - docker login --username=_ --password=$(echo $API_KEY) registry.heroku.com 
   - docker images --all
-  - docker build -t registry.heroku.com/xogame123/web .
-  - docker push registry.heroku.com/xogame123/web
+  - docker build -t registry.heroku.com/vgam/web .
+  - docker push registry.heroku.com/vgam/web

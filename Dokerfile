@@ -5,9 +5,12 @@ RUN apk add —update bash
 RUN mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf.backup 
 COPY ./vgam.conf /etc/nginx/conf.d/ 
 COPY ./listen.conf /etc/nginx/listen.conf
-
+CMD /bin/bash -c "echo \"listen $PORT;\" > /etc/nginx/listen.conf && nginx -g 'daemon off;'"
 
 RUN mkdir /vgam-progect 
 COPY ./vgam /vgam-progect 
+CMD gunicorn /vgam-progect/vgam.wsgi
 
-CMD /bin/bash -c "echo \"listen $PORT;\" > /etc/nginx/listen.conf && nginx -g 'daemon off;'"
+
+
+

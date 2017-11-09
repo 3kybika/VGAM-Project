@@ -1,35 +1,24 @@
-sudo: required 
-dist: trusty 
-language: python
-- "2.7"
+  language: python
+  python:
+    - 3.6
+    - nightly
 
-branches: 
-only: 
-- master 
+  sudo: enabled
 
-#----------------------------------------------— 
-before_install:
--sudo apt-get update
-#----DB configuration?-------------------------
+  install:  
+    - pip install .
+    - pip install gunicorn
+    - pip install -e django
+    - sudo apt-get install nginx  
 
-instal: true 
-- pip install .
-- pip install gunicorn
-- pip install -e django
-
-before_script:
-  - sudo apt-get install nginx 
-  - sudo rm /etc/nginx/sites-enabled/*
-  - sudo cp vgam.conf /etc/nginx/sites-enabled/vgam.conf
+  before_script:
+    - sudo apt-get install nginx 
+    - sudo rm /etc/nginx/sites-enabled/*
+    - sudo cp vgam.conf /etc/nginx/sites-enabled/vgam.conf
  # - sudo /etc/init.d/nginx restart
-  - sudo nginx service restart
-  - mkdir /vgam
-  - sudo cp vgam/ /vgam
-  
-script: 
-- gunicorn /vgam/vgam.wsgi
+    - sudo nginx service restart
+    - mkdir /vgam
+    - sudo cp vgam/ /vgam
 
-deploy:
- provider: heroku
-
- 
+  script: 
+     - gunicorn /vgam/vgam.wsgi
